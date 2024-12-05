@@ -29,11 +29,15 @@ jobs:
         run: kubectl version
       - name: deploy
         run: |
-          kubectl apply -f src/hasher/hasher.yaml
-          kubectl apply -f src/redis/redis.yaml
-          kubectl apply -f src/rng/rng.yaml
-          kubectl apply -f src/webui/webui.yaml
-          kubectl apply -f src/worker/worker.yaml
+          kubectl apply -f src/hasher/deploy.yaml
+          kubectl apply -f src/hasher/svc.yaml
+          kubectl apply -f src/redis/sts.yaml
+          kubectl apply -f src/redis/svc.yaml
+          kubectl apply -f src/rng/ds.yaml
+          kubectl apply -f src/rng/svc.yaml
+          kubectl apply -f src/webui/deploy.yaml
+          kubectl apply -f src/webui/svc.yaml
+          kubectl apply -f src/worker/deploy.yaml
       - name: test-webui
         run: |
           while true
