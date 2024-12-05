@@ -44,6 +44,9 @@ jobs:
           do sleep 10
           kubectl logs sts/redis 2>& 1 | grep Ready.to.accept.connections && break
           done
+      - name: deploy-worker
+        run: |
+          kubectl apply -f src/worker/deploy.yaml
       - name: test-webui
         run: |
           while true
