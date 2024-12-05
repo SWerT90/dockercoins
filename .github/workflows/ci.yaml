@@ -38,18 +38,18 @@ jobs:
           #kubectl apply -f src/webui/deploy.yaml
           kubectl apply -f src/webui/svc.yaml
           #kubectl apply -f src/worker/deploy.yaml
-      - name: test-webui
-        run: |
-          while true
-          do sleep 10
-          kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
-          done
       - name: test-redis
         run: |
           while true
           do sleep 10
           kubectl describe po
           #kubectl logs sts/redis 2>& 1 | grep Ready.to.accept.connections && break
+          done
+      - name: test-webui
+        run: |
+          while true
+          do sleep 10
+          kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
           done
       - name: test-worker
         run: |
