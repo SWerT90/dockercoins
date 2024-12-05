@@ -42,6 +42,8 @@ jobs:
         run: |
           while true
           do sleep 10
+          kubectl get deploy webui
+          kubectl describe deploy webui
           kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
           done
       - name: test-redis
