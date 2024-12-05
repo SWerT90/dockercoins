@@ -9,10 +9,10 @@ spec:
   template:
     metadata:
       labels:
-        app: hasher
+        app: rng
     spec:
       containers:
-        - image: localhost/hasher
-          name: hasher
+        - image: localhost/rng
+          name: rng
           ports:
             - containerPort: 8080
