@@ -29,15 +29,15 @@ jobs:
         run: kubectl version
       - name: deploy
         run: |
-          kubectl apply -f src/hasher/deploy.yaml
+          #kubectl apply -f src/hasher/deploy.yaml
           kubectl apply -f src/hasher/svc.yaml
           kubectl apply -f src/redis/sts.yaml
           kubectl apply -f src/redis/svc.yaml
-          kubectl apply -f src/rng/ds.yaml
+          #kubectl apply -f src/rng/ds.yaml
           kubectl apply -f src/rng/svc.yaml
-          kubectl apply -f src/webui/deploy.yaml
+          #kubectl apply -f src/webui/deploy.yaml
           kubectl apply -f src/webui/svc.yaml
-          kubectl apply -f src/worker/deploy.yaml
+          #kubectl apply -f src/worker/deploy.yaml
       - name: test-webui
         run: |
           while true
@@ -47,8 +47,9 @@ jobs:
       - name: test-redis
         run: |
           while true
-          do sleep 100
-          kubectl logs sts/redis 2>& 1 | grep Ready.to.accept.connections && break
+          do sleep 10
+          kubectl describe po
+          #kubectl logs sts/redis 2>& 1 | grep Ready.to.accept.connections && break
           done
       - name: test-worker
         run: |
