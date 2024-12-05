@@ -29,22 +29,22 @@ jobs:
         run: kubectl version
       - name: deploy
         run: |
-          kubectl apply -f src/hasher/deploy.yaml
-          kubectl apply -f src/hasher/svc.yaml
-          kubectl apply -f src/redis/sts.yaml
-          kubectl apply -f src/redis/svc.yaml
-          kubectl apply -f src/rng/ds.yaml
-          kubectl apply -f src/rng/svc.yaml
+          #kubectl apply -f src/hasher/deploy.yaml
+          #kubectl apply -f src/hasher/svc.yaml
+          #kubectl apply -f src/redis/sts.yaml
+          #kubectl apply -f src/redis/svc.yaml
+          #kubectl apply -f src/rng/ds.yaml
+          #kubectl apply -f src/rng/svc.yaml
           kubectl apply -f src/webui/deploy.yaml
-          kubectl apply -f src/webui/svc.yaml
-          kubectl apply -f src/worker/deploy.yaml
+          #kubectl apply -f src/webui/svc.yaml
+          #kubectl apply -f src/worker/deploy.yaml
       - name: test-webui
         run: |
           while true
           do sleep 10
           kubectl get deploy webui
-          kubectl describe deploy webui
-          kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
+          kubectl describe po
+          #kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
           done
       - name: test-redis
         run: |
