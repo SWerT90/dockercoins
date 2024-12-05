@@ -57,8 +57,8 @@ jobs:
         run: |
           while true
           do sleep 10
-          kubectl describe po
-          #kubectl logs deploy/worker 2>& 1 | grep Coin.found && break
+          kubectl get deploy worker
+          kubectl logs deploy/worker 2>& 1
           done
           
           
