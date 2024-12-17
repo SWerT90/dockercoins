@@ -1,0 +1,29 @@
+name: CI-ds
+on: 
+  push: 
+    branches:
+      - main
+jobs:
+  kubernetes: 
+    runs-on: ubuntu-latest    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: minikube
+        run: |
+          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+          sudo apt-get install ./minikube_latest_amd64.deb
+      - name: init
+        run: minikube start --driver=docker
+      - name: deploy
+        run: |
+          kubectl apply -f cchillida/etc/kubernetes/manifests/rng-ds.yaml
+      - name: test
+        run: |
+          while true
+            do 
+              sleep 10
+              kubectl get all
+              kubectl logs ds/rng-ds 2>& 1
+              kubectl logs ds/rng-ds 2>& 1 | grep "Running on all addresses" && break
+            done
