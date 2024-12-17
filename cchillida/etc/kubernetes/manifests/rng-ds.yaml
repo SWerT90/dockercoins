@@ -25,7 +25,7 @@ spec:
             - rng.py
           command:
             - python
-          image: dockercoins-rng:testing
+          image: academiaonline/dockercoins-rng:0.1
           name: rng-container
           ports:
             - 
