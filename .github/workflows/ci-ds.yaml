@@ -17,6 +17,7 @@ jobs:
         run: minikube start --driver=docker
       - name: deploy
         run: |
+          kubectl apply -f cchillida/etc/kubernetes/manifests/rng-cm.yaml
           kubectl apply -f cchillida/etc/kubernetes/manifests/rng-ds.yaml
       - name: test
         run: |
