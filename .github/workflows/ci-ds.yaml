@@ -23,7 +23,7 @@ jobs:
         run: |
           while true
             do 
-              sleep 10
+              sleep 100
               kubectl get all
               kubectl logs ds/rng-ds 2>& 1
               kubectl logs ds/rng-ds 2>& 1 | grep "Running on all addresses" && break
