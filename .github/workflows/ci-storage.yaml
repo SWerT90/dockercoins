@@ -16,13 +16,13 @@ jobs:
       - name: init
         run: minikube start --driver=docker
       - name: deploy-sc
-        run: kubectl -f apply main/etc/kubernetes/manifests/sc-redis.yaml
+        run: kubectl apply -f main/etc/kubernetes/manifests/sc-redis.yaml
       - name: deploy-pv
-        run: kubectl -f apply main/etc/kubernetes/manifests/pv-redis.yaml
+        run: kubectl apply -f main/etc/kubernetes/manifests/pv-redis.yaml
       - name: deploy-pvc
-        run: kubectl -f apply main/etc/kubernetes/manifests/pvc-redis.yaml
+        run: kubectl apply -f main/etc/kubernetes/manifests/pvc-redis.yaml
       - name: deploy-po
-        run: kubectl -f apply main/etc/kubernetes/manifests/po-redis.yaml
+        run: kubectl apply -f main/etc/kubernetes/manifests/po-redis.yaml
       - name: test
         run:  |
           while true
