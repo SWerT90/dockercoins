@@ -31,9 +31,9 @@ jobs:
               sleep 10
               kubectl get all
               kubectl logs redis-po
+              kubectl describe pv
               kubectl exec redis-po -- touch /data/sebastian
               kubectl exec redis-po -- find /data
-              kubectl describe pv
               find /tmp/redis
               find /tmp/redis|grep sebastian&&break
             done
