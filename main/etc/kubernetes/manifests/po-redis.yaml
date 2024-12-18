@@ -12,9 +12,9 @@ spec:
       command:
         - docker-entrypoint.sh
       image: docker.io/library/redis:alpine
-      securityContext:
+      #securityContext:
         #runAsGroup: 0
-        runAsUser: 65534
+        #runAsUser: 65534
       volumeMounts:
         - name: redis-volume
           mountPath: /data/
