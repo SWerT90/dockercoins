@@ -12,7 +12,7 @@ spec:
         app: rng
     spec:
       containers:
-        - image: academiaonline/rng
+        - image: academiaonline/rng:test
           name: rng
           ports:
             - containerPort: 8080
