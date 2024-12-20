@@ -16,20 +16,20 @@ jobs:
         run: docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
       - name: build-hasher
         run: |
-          docker build -t academiaonline/hasher:test src/hasher/
-          docker push     academiaonline/hasher:test
+          docker build -t miguelsan/hasher:test src/hasher/
+          docker push     miguelsan/hasher:test
       - name: build-rng
         run: |
-          docker build -t academiaonline/rng:test src/rng/
-          docker push     academiaonline/rng:test
+          docker build -t miguelsan/rng:test src/rng/
+          docker push     miguelsan/rng:test
       - name: build-webui
         run: |
-          docker build -t academiaonline/webui:test src/webui/
-          docker push     academiaonline/webui:test
+          docker build -t miguelsan/webui:test src/webui/
+          docker push     miguelsan/webui:test
       - name: build-worker
         run: |
-          docker build -t academiaonline/worker:test src/worker/
-          docker push     academiaonline/worker:test
+          docker build -t miguelsan/worker:test src/worker/
+          docker push     miguelsan/worker:test
       - name: minikube
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
@@ -71,20 +71,20 @@ jobs:
           done
       - name: push-hasher
         run: |
-          docker tag academiaonline/hasher:test  academiaonline/hasher:latest
-          docker push                            academiaonline/hasher:latest
+          docker tag miguelsan/hasher:test  miguelsan/hasher:latest
+          docker push                            miguelsan/hasher:latest
       - name: push-rng
         run: |
-          docker tag academiaonline/rng:test     academiaonline/rng:latest
-          docker push                            academiaonline/rng:latest
+          docker tag miguelsan/rng:test     miguelsan/rng:latest
+          docker push                            miguelsan/rng:latest
       - name: push-webui
         run: |
-          docker tag academiaonline/webui:test   academiaonline/webui:latest
-          docker push                            academiaonline/webui:latest
+          docker tag miguelsan/webui:test   miguelsan/webui:latest
+          docker push                            miguelsan/webui:latest
       - name: push-worker
         run: |
-          docker tag academiaonline/worker:test  academiaonline/worker:latest
-          docker push                            academiaonline/worker:latest
+          docker tag miguelsan/worker:test  miguelsan/worker:latest
+          docker push                            miguelsan/worker:latest
       - name: wget-oc
         run: |
           wget https://downloads-openshift-console.apps.openshift.sebastian-colomar.es/amd64/linux/oc.tar
