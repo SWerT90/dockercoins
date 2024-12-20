@@ -67,10 +67,23 @@ jobs:
           while true
           do sleep 10
           kubectl get deploy worker
-          kubectl logs deploy/worker 2>& 1
+          kubectl logs deploy/worker 2>& 1 | grep "units of work done, updating hash counter" && break
           done
-          
-          
-          
+      - name: push-hasher
+        run: |
+          docker tag academiaonline/hasher:test  academiaonline/hasher:latest
+          docker push                            academiaonline/hasher:latest
+      - name: push-rng
+        run: |
+          docker tag academiaonline/rng:test     academiaonline/rng:latest
+          docker push                            academiaonline/rng:latest
+      - name: push-webui
+        run: |
+          docker tag academiaonline/webui:test   academiaonline/webui:latest
+          docker push                            academiaonline/webui:latest
+      - name: push-worker
+        run: |
+          docker tag academiaonline/worker:test  academiaonline/worker:latest
+          docker push                            academiaonline/worker:latest
           
           
