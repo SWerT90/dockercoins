@@ -17,19 +17,19 @@ jobs:
       - name: build-hasher
         run: |
           docker build -t academiaonline/hasher:test src/hasher/
-          docker push  -t academiaonline/hasher:test src/hasher/
+          docker push     academiaonline/hasher:test
       - name: build-rng
         run: |
           docker build -t academiaonline/rng:test src/rng/
-          docker push  -t academiaonline/rng:test src/rng/
+          docker push     academiaonline/rng:test
       - name: build-webui
         run: |
           docker build -t academiaonline/webui:test src/webui/
-          docker push  -t academiaonline/webui:test src/webui/
+          docker push     academiaonline/webui:test
       - name: build-worker
         run: |
           docker build -t academiaonline/worker:test src/worker/
-          docker push  -t academiaonline/worker:test src/worker/
+          docker push     academiaonline/worker:test
       - name: minikube
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
