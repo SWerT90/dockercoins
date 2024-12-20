@@ -13,7 +13,7 @@ spec:
         app: webui
     spec:
       containers:
-        - image: academiaonline/webui:latest
+        - image: miguelsan/webui:latest
           name: webui
           ports:
             - containerPort: 8080
