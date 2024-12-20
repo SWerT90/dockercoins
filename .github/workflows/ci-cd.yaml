@@ -1,4 +1,4 @@
-name: CI
+name: CI-CD
 on: 
   push: 
     branches:
@@ -85,5 +85,51 @@ jobs:
         run: |
           docker tag academiaonline/worker:test  academiaonline/worker:latest
           docker push                            academiaonline/worker:latest
-          
+      - name: wget-oc
+        run: |
+          wget https://downloads-openshift-console.apps.openshift.sebastian-colomar.es/amd64/linux/oc.tar
+          tar xf oc.tar
+          sudo cp oc /usr/local/bin
+          oc version
+      - name: oc-login
+        env:
+          OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+          OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+        run: oc login --server="${OPENSHIFT_SERVER}" --token="${OPENSHIFT_TOKEN}"
+      - name: deploy
+        env:
+          OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+        run: |
+          oc project "${OPENSHIFT_NAMESPACE}"
+          oc apply -f src/hasher/deploy.yaml
+          oc apply -f src/hasher/svc.yaml
+          oc apply -f src/redis/sts.yaml
+          oc apply -f src/redis/svc.yaml
+          oc apply -f src/rng/ds.yaml
+          oc apply -f src/rng/svc.yaml
+          oc apply -f src/webui/deploy.yaml
+          oc apply -f src/webui/svc.yaml
+          oc apply -f src/worker/deploy-test.yaml
+      - name: test-redis
+        run: |
+          while true
+          do sleep 10
+          kubectl logs sts/redis 2>& 1 | grep Ready.to.accept.connections && break
+          done
+      - name: deploy-worker
+        run: |
+          kubectl apply -f src/worker/deploy.yaml
+      - name: test-webui
+        run: |
+          while true
+          do sleep 10
+          kubectl logs deploy/webui 2>& 1 | grep WEBUI.running && break
+          done
+      - name: test-worker
+        run: |
+          while true
+          do sleep 10
+          kubectl get deploy worker
+          kubectl logs deploy/worker 2>& 1 | grep "units of work done, updating hash counter" && break
+          done
           
