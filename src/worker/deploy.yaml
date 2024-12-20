@@ -13,5 +13,5 @@ spec:
         app: worker
     spec:
       containers:
-        - image: academiaonline/worker:test
+        - image: academiaonline/worker:latest
           name: worker
