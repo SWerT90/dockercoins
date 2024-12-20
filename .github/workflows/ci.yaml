@@ -9,24 +9,33 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: docker-login
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: docker login -p ${DOCKER_PASSWORD} -u ${DOCKER_USERNAME}
       - name: build-hasher
-        run: docker build -t localhost/hasher src/hasher/
+        run: |
+          docker build -t academiaonline/hasher:test src/hasher/
+          docker push  -t academiaonline/hasher:test src/hasher/
       - name: build-rng
-        run: docker build -t localhost/rng src/rng/
+        run: |
+          docker build -t academiaonline/rng:test src/rng/
+          docker push  -t academiaonline/rng:test src/rng/
       - name: build-webui
-        run: docker build -t localhost/webui src/webui/
+        run: |
+          docker build -t academiaonline/webui:test src/webui/
+          docker push  -t academiaonline/webui:test src/webui/
       - name: build-worker
-        run: docker build -t localhost/worker src/worker/
-      - name: list-build
-        run: docker images
+        run: |
+          docker build -t academiaonline/worker:test src/worker/
+          docker push  -t academiaonline/worker:test src/worker/
       - name: minikube
         run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
           sudo apt-get install ./minikube_latest_amd64.deb
       - name: init
         run: minikube start --driver=docker
-      - name: kubectl
-        run: kubectl version
       - name: deploy
         run: |
           kubectl apply -f src/hasher/deploy.yaml
