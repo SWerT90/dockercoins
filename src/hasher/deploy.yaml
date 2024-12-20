@@ -13,7 +13,7 @@ spec:
         app: hasher
     spec:
       containers:
-        - image: academiaonline/hasher:test
+        - image: academiaonline/hasher:latest
           name: hasher
           ports:
             - containerPort: 8080
